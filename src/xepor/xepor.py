@@ -108,12 +108,14 @@ class InterceptedAPI:
     def __init__(
         self,
         default_host: Optional[str] = None,
-        host_mapping: List[Tuple[Union[str, re.Pattern], str]] = {},
-        blacklist_domain: List[str] = [],
+        host_mapping: Optional[List[Tuple[Union[str, re.Pattern], str]]] = None,
+        blacklist_domain: Optional[List[str]] = None,
         request_passthrough: bool = True,
         response_passthrough: bool = True,
         respect_proxy_headers: bool = False,
     ):
+        host_mapping = {} if host_mapping is None else host_mapping
+        blacklist_domain = [] if blacklist_domain is None else blacklist_domain
 
         self.default_host = default_host
         self.host_mapping = host_mapping
